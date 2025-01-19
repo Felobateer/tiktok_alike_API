@@ -1,10 +1,12 @@
 from django.db import models
 from comments.models import Comment
 from tag.models import Tag
+from users.models import User
 import uuid
 
 class Video(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
     title = models.TextField(null=False, blank=False)
     thumb_nail = models.ImageField(upload_to='thumb_nail/', blank=False, null=False)
     description = models.TextField(blank=True, null=True)
